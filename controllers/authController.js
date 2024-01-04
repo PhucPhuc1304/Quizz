@@ -10,8 +10,8 @@ const register = async (req, res) => {
         const result = await userService.createUser(req.body);
 
         if (result.statusCode === httpStatus.CREATED) {
-            //const emailActivationToken = await tokenService.generateEmailActivationToken(req.body.email);
-            //await emailService.sendEmailActivationEmail(req.body.email, emailActivationToken);
+            const emailActivationToken = await tokenService.generateEmailActivationToken(req.body.email);
+            await emailService.sendEmailActivationEmail(req.body.email, emailActivationToken);
             res.status(httpStatus.CREATED).send({  status: result.statusCode, message: result.message});
         } else {
             // Handle other status codes if needed
