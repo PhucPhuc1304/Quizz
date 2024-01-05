@@ -21,10 +21,10 @@ mongoose.connect(config.mongoose.url, config.mongoose.options)
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use('/v1/auth', authRoutes);
-app.use('/v1/subjects', subjectRoutes);
-app.use('/v1/questions', questionRoutes);
-app.use('/v1/exams', examRoutes);
+app.use('api/v1/auth', authRoutes);
+app.use('api/v1/subjects', subjectRoutes);
+app.use('api/v1/questions', questionRoutes);
+app.use('api/v1/exams', examRoutes);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
