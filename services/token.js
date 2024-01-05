@@ -62,7 +62,7 @@ const generateEmailActivationToken = async (email) => {
     const expires = moment().add(config.jwt.emailActivationExpirationMinutes, 'minutes');
     const emailActivationToken = generateToken(user.id, user.role, expires);
     return emailActivationToken;
-}
+};
 
 module.exports = {
     generateToken,

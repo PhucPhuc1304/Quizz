@@ -10,8 +10,8 @@ const register = async (req, res) => {
         const result = await userService.createUser(req.body);
 
         if (result.statusCode === httpStatus.CREATED) {
-            //const emailActivationToken = await tokenService.generateEmailActivationToken(req.body.email);
-            //await emailService.sendEmailActivationEmail(req.body.email, emailActivationToken);
+            const emailActivationToken = await tokenService.generateEmailActivationToken(req.body.email);
+            await emailService.sendEmailActivationEmail(req.body.email, emailActivationToken);
             res.status(httpStatus.CREATED).send({  status: result.statusCode, message: result.message});
         } else {
             // Handle other status codes if needed
@@ -39,16 +39,19 @@ const login = async (req, res) => {
     }
 };
 
+const logout = async (req, res) => {
+    res.clearCookie('authToken');    
+    res.status("200").send({ message: 'Logout successful' });
+};
 
 const verifyEmail = async (req, res) => {
     await authService.verifyEmail(req.query.token);
     res.status(httpStatus.NO_CONTENT).send({ message: 'Account verified. Please try to login using this email'});
 };
 
-
-
 module.exports = {
     register,
     login,
+    logout,
     verifyEmail,
 };

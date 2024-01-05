@@ -35,11 +35,6 @@ const loginUserWithEmailAndPassword = async (email, password) => {
     }
 };
 
-const logout = async (refreshToken) => {
-
-};
-
-
 const verifyEmail = async (emailVerificationToken) => {
     try {
         const emailVerificationTokenDoc = await tokenService.verifyToken(emailVerificationToken);
@@ -55,6 +50,5 @@ const verifyEmail = async (emailVerificationToken) => {
 
 module.exports = {
     loginUserWithEmailAndPassword,
-    logout,
     verifyEmail,
 };
