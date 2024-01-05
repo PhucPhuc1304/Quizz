@@ -44,7 +44,7 @@ If you did not request any password resets, then ignore this email.`;
  */
 const sendEmailActivationEmail = async (to, token) => {
   const subject = 'Email Confirmation';
-  const activationUrl = `${config.url}/v1/auth/verify-email?token=${token}`;
+  const activationUrl = `${config.url}/api/v1/auth/verify-email?token=${token}`;
   const text = `Dear user, 
   Please click thi link to activate your account: ${activationUrl}
   If you did not request for any email activation, then ignore this email.`;  
