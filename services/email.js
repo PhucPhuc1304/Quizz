@@ -29,7 +29,7 @@ const sendEmail = async (to, subject, text) => {
 const sendResetPasswordEmail = async (to, token) => {
   const subject = 'Reset password';
   // replace this url with the link to the reset password page of your front-end app
-  const resetPasswordUrl = `${config.url}:${config.port}/v1/auth/reset-password?token=${token}`;
+  const resetPasswordUrl = `${config.url}/v1/auth/reset-password?token=${token}`;
   const text = `Dear user,
 To reset your password, click on this link: ${resetPasswordUrl}
 If you did not request any password resets, then ignore this email.`;
@@ -44,7 +44,7 @@ If you did not request any password resets, then ignore this email.`;
  */
 const sendEmailActivationEmail = async (to, token) => {
   const subject = 'Email Confirmation';
-  const activationUrl = `${config.url}:${config.port}/v1/auth/verify-email?token=${token}`;
+  const activationUrl = `${config.url}/v1/auth/verify-email?token=${token}`;
   const text = `Dear user, 
   Please click thi link to activate your account: ${activationUrl}
   If you did not request for any email activation, then ignore this email.`;  
