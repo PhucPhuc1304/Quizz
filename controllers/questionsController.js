@@ -69,12 +69,10 @@ const updateQuestion = async (req, res) => {
 const deleteQuestion = async (req, res) => {
   try {
     await questionService.deleteQuestionById(req.params.questionId);
-    res
-      .status(httpStatus.OK)
-      .json({
-        status: httpStatus.OK,
-        message: `Delete Question With ID = ${req.params.questionId}`,
-      });
+    res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      message: `Delete Question With ID = ${req.params.questionId}`,
+    });
   } catch (error) {
     console.error(error);
     res

@@ -7,15 +7,18 @@ const verifyCallback = async (req, resolve, requiredRights) => {
   try {
     let token = req.headers.authorization;
 
-    if (!token || !token.startsWith('Bearer ')) {
+    if (!token || !token.startsWith("Bearer ")) {
       token = req.cookies?.authToken;
       if (!token) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+        throw new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate");
       }
     }
 
     const tokenWithoutPrefix = token.slice(7);
-    const decodedToken = await jwt.verify(tokenWithoutPrefix, configs.jwt.secret);
+    const decodedToken = await jwt.verify(
+      tokenWithoutPrefix,
+      configs.jwt.secret
+    );
     req.user = decodedToken; // Set user information in the request
 
     if (requiredRights.length) {
@@ -24,7 +27,7 @@ const verifyCallback = async (req, resolve, requiredRights) => {
         userRights.includes(requiredRight)
       );
       if (!hasRequiredRights) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+        throw new ApiError(httpStatus.FORBIDDEN, "Forbidden");
       }
     }
 

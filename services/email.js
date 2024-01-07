@@ -1,11 +1,10 @@
-const nodemailer = require('nodemailer');
-const config = require('../config/config');
+const nodemailer = require("nodemailer");
+const config = require("../config/config");
 
 const transport = nodemailer.createTransport(config.email.smtp);
 /* istanbul ignore next */
-if (config.env !== 'test') {
-  transport
-    .verify();
+if (config.env !== "test") {
+  transport.verify();
 }
 
 /**
@@ -27,7 +26,7 @@ const sendEmail = async (to, subject, text) => {
  * @returns {Promise}
  */
 const sendResetPasswordEmail = async (to, token) => {
-  const subject = 'Reset password';
+  const subject = "Reset password";
   // replace this url with the link to the reset password page of your front-end app
   const resetPasswordUrl = `${config.url}/v1/auth/reset-password?token=${token}`;
   const text = `Dear user,
@@ -43,13 +42,13 @@ If you did not request any password resets, then ignore this email.`;
  * @returns {Promise}
  */
 const sendEmailActivationEmail = async (to, token) => {
-  const subject = 'Email Confirmation';
+  const subject = "Email Confirmation";
   const activationUrl = `${config.url}/api/v1/auth/verify-email?token=${token}`;
   const text = `Dear user, 
   Please click thi link to activate your account: ${activationUrl}
-  If you did not request for any email activation, then ignore this email.`;  
+  If you did not request for any email activation, then ignore this email.`;
   await sendEmail(to, subject, text);
-}
+};
 
 module.exports = {
   transport,

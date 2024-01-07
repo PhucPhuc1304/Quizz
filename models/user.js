@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const { roles } = require('../config/roles');
+const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
+const { roles } = require("../config/roles");
 
 const userSchema = mongoose.Schema(
   {
@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate: {
         validator: validator.isEmail,
-        message: 'Invalid Email',
+        message: "Invalid Email",
       },
     },
     password: {
@@ -33,13 +33,12 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
       enum: roles,
-      default: 'student',
+      default: "student",
     },
     active: {
       type: Boolean,
       default: false,
     },
-
   },
   {
     timestamps: true,
@@ -56,12 +55,12 @@ userSchema.methods.isPasswordMatch = async function (password) {
   return bcrypt.compare(password, user.password);
 };
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

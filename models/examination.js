@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const mongoose = require("mongoose");
+const { toJSON } = require("./plugins");
 
 const examinationSchema = mongoose.Schema(
   {
@@ -14,7 +14,7 @@ const examinationSchema = mongoose.Schema(
     questions: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Question',
+        ref: "Question",
         required: true,
       },
     ],
@@ -25,13 +25,13 @@ const examinationSchema = mongoose.Schema(
 );
 
 // Populate the 'questions' field with the full content of the questions.
-examinationSchema.pre('findOne', function (next) {
-  this.populate('questions');
+examinationSchema.pre("findOne", function (next) {
+  this.populate("questions");
   next();
 });
 
 examinationSchema.plugin(toJSON);
 
-const Examination = mongoose.model('Examination', examinationSchema);
+const Examination = mongoose.model("Examination", examinationSchema);
 
 module.exports = Examination;
