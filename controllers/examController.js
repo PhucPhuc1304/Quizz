@@ -21,7 +21,6 @@ const getDetailsExam = async (req, res) => {
 
     // Retrieve exam details
     const exam = await examSevices.getExamById(id);
-    console.log(exam);
     // Retrieve details for each question in the exam
     //const questionsDetails = await Promise.all(exam.questions.map(questionId => questionSevices.getQuestionById(questionId)));
 
