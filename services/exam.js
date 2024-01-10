@@ -32,7 +32,6 @@ const generateQuestions = async (subjectName) => {
       { $match: { subject_id: subject_id, difficulty: "easy" } },
       { $sample: { size: 3 } },
     ]);
-    console.log("Easy Questions:", easyQuestions);
 
     const mediumQuestions = await Question.aggregate([
       { $match: { subject_id: subject_id, difficulty: "medium" } },
