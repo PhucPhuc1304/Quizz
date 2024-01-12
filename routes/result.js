@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   "/",
-  auth("manageResult"),
+  auth("getResult"),
   validate(resultValidation.createResult),
   resultController.createResult
 );

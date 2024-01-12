@@ -10,7 +10,8 @@ const getPermissionList = [
   "getQuestion",
   "getQuestions",
   "getResult",
-  "manageExam",
+  "getExams",
+  "getResult"
 ];
 const studentPermissionList = [];
 const tutorManagePermissionList = [

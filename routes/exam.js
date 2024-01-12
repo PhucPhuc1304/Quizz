@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.post(
   "/",
-  auth("manageExam"),
+  auth("getExams"),
   validate(examValidation.createExamination),
   examController.createExam
 );
 router.post(
   "/details/:id",
   validate(examValidation.getDetailsExam),
-  auth("manageExam"),
+  auth("getExams"),
   examController.getDetailsExam
 );
 router.delete(
