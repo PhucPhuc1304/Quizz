@@ -53,25 +53,24 @@ const generateResetPasswordToken = async (email) => {
   if (!user) {
     return {
       status: httpStatus.NOT_FOUND,
-      message: 'No user found with this email',
+      message: "No user found with this email",
       token: null,
     };
   }
 
   const expires = moment().add(
     config.jwt.resetPasswordExpirationMinutes,
-    'minutes'
+    "minutes"
   );
   console.log(user.id, user.role, expires);
   const resetPasswordToken = generateToken(user.id, user.role, expires);
 
   return {
     status: httpStatus.OK,
-    message: 'Token generated successfully',
+    message: "Token generated successfully",
     token: resetPasswordToken,
   };
 };
-
 
 const generateEmailActivationToken = async (email) => {
   const user = await userService.getUserByEmail(email);
