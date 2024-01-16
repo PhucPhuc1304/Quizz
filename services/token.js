@@ -25,7 +25,6 @@ const verifyToken = async (token) => {
     token,
     user: payload.sub,
   };
-  console.log(tokenDoc);
   if (!tokenDoc) {
     throw new Error("Token not found");
   }
@@ -52,16 +51,27 @@ const generateAuthTokens = async (user) => {
 const generateResetPasswordToken = async (email) => {
   const user = await userService.getUserByEmail(email);
   if (!user) {
-    throw new Error("No user found with this email");
+    return {
+      status: httpStatus.NOT_FOUND,
+      message: 'No user found with this email',
+      token: null,
+    };
   }
+
   const expires = moment().add(
     config.jwt.resetPasswordExpirationMinutes,
-    "minutes"
+    'minutes'
   );
-  const resetPassswordToken = generateToken(user.id, user.role, expires);
-  await saveToken(resetPassswordToken, user.id, expires);
-  return resetPassswordToken;
+  console.log(user.id, user.role, expires);
+  const resetPasswordToken = generateToken(user.id, user.role, expires);
+
+  return {
+    status: httpStatus.OK,
+    message: 'Token generated successfully',
+    token: resetPasswordToken,
+  };
 };
+
 
 const generateEmailActivationToken = async (email) => {
   const user = await userService.getUserByEmail(email);

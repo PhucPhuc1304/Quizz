@@ -72,10 +72,42 @@ const verifyEmail = async (req, res) => {
     message: "Account verified. Please try to login using this email",
   });
 };
+const forgotPassword = async (req, res) => {
+  try {
+    const { status, message, token } = await tokenService.generateResetPasswordToken(req.body.email);
+
+    if (status === httpStatus.NOT_FOUND) {
+      return res.status(httpStatus.NOT_FOUND).send(message);
+    }
+    await emailService.sendResetPasswordEmail(req.body.email, token);
+    res.status(status).send(message);
+  } catch (error) {
+    console.log(error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send('Internal Server Error'); // Handle errors appropriately
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { status, message } = await authService.resetPassword(req.query.token, '123456789');
+    
+    if (status === httpStatus.OK) {
+      res.status(httpStatus.NO_CONTENT).send('Password reset successfully');
+    } else {
+      res.status(status).send(message);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).send('Invalid or expired token');
+  }
+};
+
 
 module.exports = {
   register,
   login,
   logout,
   verifyEmail,
+  forgotPassword,
+  resetPassword
 };
